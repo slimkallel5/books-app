@@ -53,7 +53,8 @@ run_super() {
   elif [ "$(id -un)" = "$PG_SUPERUSER" ]; then
     psql "$@"
   else
-    sudo -u "$PG_SUPERUSER" psql "$@"
+    # Run from / so sudo does not warn about an unreadable working directory.
+    ( cd / && sudo -u "$PG_SUPERUSER" psql "$@" )
   fi
 }
 
@@ -80,11 +81,16 @@ drop_db "$APP_DB"
 drop_db "$TEST_DB"
 
 if [ "$KEEP_ROLE" != "1" ]; then
-  log "Dropping role '${APP_USER}'…"
-  # Ownership is dropped with the databases above; DROP OWNED clears anything left.
-  run_super -v ON_ERROR_STOP=1 -q -d postgres \
-    -c "DROP OWNED BY \"${APP_USER}\";" \
-    -c "DROP ROLE IF EXISTS \"${APP_USER}\";"
+  role_exists="$(run_super -tAc "SELECT 1 FROM pg_roles WHERE rolname = '${APP_USER}'" -d postgres || true)"
+  if [ "$role_exists" = "1" ]; then
+    log "Dropping role '${APP_USER}'…"
+    # Ownership is dropped with the databases above; DROP OWNED clears anything left.
+    run_super -v ON_ERROR_STOP=1 -q -d postgres \
+      -c "DROP OWNED BY \"${APP_USER}\";" \
+      -c "DROP ROLE IF EXISTS \"${APP_USER}\";"
+  else
+    log "Role '${APP_USER}' does not exist — nothing to drop."
+  fi
 fi
 
 printf '\n\033[1;32m✓ Teardown complete.\033[0m\n'

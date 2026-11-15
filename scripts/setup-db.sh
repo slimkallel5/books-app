@@ -59,7 +59,8 @@ run_super() {
   elif [ "$(id -un)" = "$PG_SUPERUSER" ]; then
     psql "$@"
   else
-    sudo -u "$PG_SUPERUSER" psql "$@"
+    # Run from / so sudo does not warn about an unreadable working directory.
+    ( cd / && sudo -u "$PG_SUPERUSER" psql "$@" )
   fi
 }
 
