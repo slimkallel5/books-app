@@ -2,7 +2,7 @@
   "name": "maktaba",
   "version": "1.0.0",
   "private": true,
-  "description": "Maktaba – The Digital Library. Responsive web, Expo mobile app and REST API.",
+  "description": "Maktaba \u2013 The Digital Library. Responsive web, Expo mobile app and REST API.",
   "workspaces": [
     "packages/*",
     "apps/*"
@@ -11,6 +11,8 @@
     "node": ">=20"
   },
   "scripts": {
+    "db:setup": "bash scripts/setup-db.sh",
+    "db:teardown": "bash scripts/teardown-db.sh",
     "db:migrate": "npm run migrate -w @maktaba/api",
     "db:seed": "npm run seed -w @maktaba/api",
     "db:reset": "npm run db:reset -w @maktaba/api",

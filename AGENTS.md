@@ -28,6 +28,8 @@ components and animations of the source template `Maktaba – The Digital Librar
 - DB helpers: `db/migrate.ts` (schema_migrations), `db/reset.ts` (`resetSchema()`), `db/seed.ts`, `db/seed-data.ts`.
 
 ## Commands
+- `npm run db:setup` — create role + app/test DBs, fix ownership, migrate, seed (one-shot; `scripts/setup-db.sh`)
+- `npm run db:teardown` — drop app/test DBs and role (`scripts/teardown-db.sh`; `KEEP_ROLE=1` keeps the role)
 - `npm run db:migrate` / `db:seed` / `db:reset`
 - `npm run dev:api` (port 4000), `npm run dev:web` (port 5173), `npm run mobile` (Expo)
 - `npm run build` (shared → api → web)
