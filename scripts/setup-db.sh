@@ -27,6 +27,13 @@ die()  { printf '\033[1;31merror:\033[0m %s\n' "$*" >&2; exit 1; }
 
 command -v psql >/dev/null 2>&1 || die "psql not found. Install the PostgreSQL client tools first."
 
+# This script elevates only for the psql steps (via sudo -u postgres). Running
+# the whole thing under sudo makes npm/node/tsx run as root with sudo's
+# secure_path, which usually resolves an old system Node and breaks the build.
+if [ "$(id -u)" -eq 0 ] && [ "${ALLOW_ROOT:-0}" != "1" ]; then
+  die "Do not run this script with sudo/root. Run 'npm run db:setup' as your normal user — it elevates only for the psql commands. (Set ALLOW_ROOT=1 to override.)"
+fi
+
 # --- read a KEY from .env without sourcing it ---------------------------------
 read_env() {
   local key="$1" default="${2-}" val=""

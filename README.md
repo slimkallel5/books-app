@@ -62,6 +62,10 @@ seeds. To remove everything again use `npm run db:teardown` (add `KEEP_ROLE=1` t
 databases). Both scripts run `psql` as the `postgres` superuser via `sudo`; override the
 superuser with `PG_SUPERUSER=<name>` or a full command with `PSQL_SUPER='psql -U <user>'`.
 
+Run these as your **normal user** (they prompt for your `sudo` password when they elevate for
+the psql steps). Do **not** prefix them with `sudo`: that makes `npm`/`node`/`tsx` run as root
+under sudo's `secure_path`, which usually resolves an old system Node and fails the migration.
+
 If you prefer to manage Postgres yourself, run the steps individually instead:
 
 ```bash

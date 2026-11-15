@@ -28,6 +28,12 @@ die()  { printf '\033[1;31merror:\033[0m %s\n' "$*" >&2; exit 1; }
 
 command -v psql >/dev/null 2>&1 || die "psql not found. Install the PostgreSQL client tools first."
 
+# Elevation happens only for the psql steps (via sudo -u postgres); the script
+# itself should run as your normal user, not root.
+if [ "$(id -u)" -eq 0 ] && [ "${ALLOW_ROOT:-0}" != "1" ]; then
+  die "Do not run this script with sudo/root. Run 'npm run db:teardown' as your normal user. (Set ALLOW_ROOT=1 to override.)"
+fi
+
 read_env() {
   local key="$1" default="${2-}" val=""
   if [ -f "$ENV_FILE" ]; then
