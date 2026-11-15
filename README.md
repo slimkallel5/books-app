@@ -43,9 +43,8 @@ npm install
 # 2. Configure environment
 cp .env.example .env          # then edit DATABASE_URL / JWT_SECRET as needed
 
-# 3. Create the database schema and seed the 12 template books
-npm run db:migrate
-npm run db:seed
+# 3. Create the role + databases, run migrations and seed the 12 template books
+npm run db:setup
 
 # 4. Run the API (http://localhost:4000)
 npm run dev:api
@@ -55,6 +54,20 @@ npm run dev:web
 
 # Optional: run the mobile app (Expo)
 npm run mobile
+```
+
+`npm run db:setup` creates the PostgreSQL role and the app + test databases if they do not
+exist, fixes table ownership if an earlier run created them as another role, then migrates and
+seeds. To remove everything again use `npm run db:teardown` (add `KEEP_ROLE=1` to drop only the
+databases). Both scripts run `psql` as the `postgres` superuser via `sudo`; override the
+superuser with `PG_SUPERUSER=<name>` or a full command with `PSQL_SUPER='psql -U <user>'`.
+
+If you prefer to manage Postgres yourself, run the steps individually instead:
+
+```bash
+npm run db:migrate   # apply migrations
+npm run db:seed      # load the 12 template books
+npm run db:reset     # drop all app tables, re-migrate (keeps the database)
 ```
 
 ## Environment variables
@@ -102,6 +115,8 @@ Coupons seeded: `MAKTABA15` (15%), `WELCOME10` (10%). Admin credentials default 
 
 | Command | Description |
 |---------|-------------|
+| `npm run db:setup` | create role + databases, migrate, seed (one-shot) |
+| `npm run db:teardown` | drop the app/test databases and role |
 | `npm run db:migrate` / `db:seed` / `db:reset` | database lifecycle |
 | `npm run dev:api` / `dev:web` / `mobile` | run each app in dev |
 | `npm run build` | build shared → api → web |
