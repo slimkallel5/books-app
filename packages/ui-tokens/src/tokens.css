@@ -1,0 +1,45 @@
+/* Maktaba design tokens — extracted verbatim from the original template. */
+:root {
+  --bg: #f7f1e3;
+  --bg2: #efe4cb;
+  --ink: #2b2118;
+  --mut: #7a6a58;
+  --card: #fffaf0;
+  --acc: #c2542d;
+  --gold: #c99a3b;
+  --wood: #c9a26b;
+  --wood2: #a97f4a;
+  --line: #e3d6b8;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #1f1a14;
+    --bg2: #2a231a;
+    --ink: #f3e9d6;
+    --mut: #b5a58e;
+    --card: #2d251b;
+    --line: #43372a;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #1f1a14;
+  --bg2: #2a231a;
+  --ink: #f3e9d6;
+  --mut: #b5a58e;
+  --card: #2d251b;
+  --line: #43372a;
+}
+
+:root[data-theme='light'] {
+  --bg: #f7f1e3;
+  --bg2: #efe4cb;
+  --ink: #2b2118;
+  --mut: #7a6a58;
+  --card: #fffaf0;
+  --line: #e3d6b8;
+}

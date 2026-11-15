@@ -1,0 +1,36 @@
+{
+  "name": "maktaba",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Maktaba – The Digital Library. Responsive web, Expo mobile app and REST API.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "db:migrate": "npm run migrate -w @maktaba/api",
+    "db:seed": "npm run seed -w @maktaba/api",
+    "db:reset": "npm run db:reset -w @maktaba/api",
+    "dev:api": "npm run dev -w @maktaba/api",
+    "dev:web": "npm run dev -w @maktaba/web",
+    "build": "npm run build -w @maktaba/shared && npm run build -w @maktaba/api && npm run build -w @maktaba/web",
+    "build:api": "npm run build -w @maktaba/api",
+    "build:web": "npm run build -w @maktaba/web",
+    "test": "npm run test -w @maktaba/api && npm run test -w @maktaba/web",
+    "lint": "eslint apps packages --max-warnings=0",
+    "typecheck": "npm run typecheck -w @maktaba/api && npm run typecheck -w @maktaba/web && npm run typecheck -w @maktaba/shared",
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "start:api": "npm run start -w @maktaba/api",
+    "mobile": "npm run start -w @maktaba/mobile"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^15.15.0",
+    "typescript-eslint": "^8.72.2"
+  }
+}
