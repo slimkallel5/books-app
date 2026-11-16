@@ -41,3 +41,8 @@ components and animations of the source template `Maktaba – The Digital Librar
 ## Notes
 - API tests hit a real PostgreSQL database (`TEST_DATABASE_URL`, e.g. `maktaba_test`); no mocks.
 - `apps/api/tests/setup.ts` seeds/uses the test DB; `vitest.config.ts` loads it.
+- The template (`Maktaba – The Digital Library (1).html`) has **no load/entrance animation**: its only
+  keyframes are `bump` and `pop` (both interaction-driven), plus CSS transitions and JS "fly" moves.
+  Both keyframes and every transition are already ported into `packages/ui-tokens/src/styles.css`.
+  If the shelf looks empty on first paint, that is the API not having responded yet (the template had
+  books hard-coded); it is not a missing animation import.
