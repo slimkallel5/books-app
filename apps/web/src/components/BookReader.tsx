@@ -146,7 +146,7 @@ export function BookReader({ book, onClose }: Props) {
         </div>
       </div>
 
-      <div className="bar" id="bar" style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="bar" id="bar">
         <button className="ghost" onClick={() => go(-1)} aria-label={t('back')}>
           ‹
         </button>

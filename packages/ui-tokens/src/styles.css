@@ -456,6 +456,24 @@ footer small {
   border-radius: 10px 2px 2px 10px;
   background: linear-gradient(270deg, #0005 0 4%, transparent 10%), var(--c);
 }
+.pg.end {
+  background: var(--c);
+  filter: saturate(0.7) brightness(1.15);
+}
+
+/* ---------- reader toolbar ---------- */
+.bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #fff;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.bar .ghost {
+  color: #fff;
+  border-color: #fff6;
+}
 
 /* ---------- cart drawer ---------- */
 .dr {
@@ -488,6 +506,9 @@ footer small {
   align-items: center;
   border-bottom: 1px solid var(--line);
   padding-bottom: 12px;
+}
+.it div {
+  flex: 1;
 }
 .it .mini {
   width: 56px;
